@@ -520,6 +520,10 @@ body {
     gap: 0.7rem;
   }
 
+    .subheading {
+    font-size: 1.6rem;
+  }
+
   .heading-icon {
     font-size: 3.6rem;
   }
@@ -617,6 +621,7 @@ body {
   justify-content: space-between;
   gap: 1.6rem;
 }
+
 
 
 
