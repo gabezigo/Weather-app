@@ -355,7 +355,7 @@ body {
   background: rgba(255 255 255 / 0.12);
   border-radius: 1.4rem;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-  padding: 2rem 2.4rem;
+  padding: 1rem;
   color: #d0e4ff;
   display: flex;
   flex-direction: column;
@@ -401,7 +401,7 @@ body {
   background: rgba(255 255 255 / 0.12);
   border-radius: 1.4rem;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-  padding: 2rem 2.4rem;
+  padding: 1rem;
   color: #d0e4ff;
   display: flex;
   flex-direction: column;
@@ -409,7 +409,7 @@ body {
 }
 
 .visibility-pressure {
-  flex-direction: row;
+  flex-direction: row !important;
 }
 
 /* Flex container for icon + text */
@@ -587,6 +587,7 @@ body {
     font-size: 1.3rem;
   }
 }
+
 
 
 
