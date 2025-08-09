@@ -491,7 +491,7 @@ body {
 
   .sun-section {
     flex-direction: row;
-    gap: 1.8rem;
+    gap: 1rem;
   }
 
   .daily-forecast__container,
@@ -521,7 +521,7 @@ body {
   }
 
     .subheading {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
 
   .heading-icon {
@@ -621,6 +621,7 @@ body {
   justify-content: space-between;
   gap: 1.6rem;
 }
+
 
 
 
