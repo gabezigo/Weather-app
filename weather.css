@@ -547,8 +547,6 @@ body {
 
   .wind-section,
   .humidity-section,
-  .sunrise,
-  .sunset,
   .visibility-pressure {
     width: 100%;
     padding: 1.6rem 2rem;
@@ -617,6 +615,7 @@ body {
   justify-content: space-between;
   gap: 1.6rem;
 }
+
 
 
 
