@@ -419,6 +419,7 @@ body {
 
 .sunrise,
 .sunset {
+  flex-direction: row !important;
   padding: 0 !important;
   background: none !important;  /* remove individual backgrounds */
   box-shadow: none !important;  /* remove individual shadows */
@@ -615,6 +616,7 @@ body {
   justify-content: space-between;
   gap: 1.6rem;
 }
+
 
 
 
