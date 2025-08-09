@@ -268,8 +268,8 @@ body {
 }
 
 .daily-forecast ion-icon {
-  font-size: 1.6rem;
-  color: #0a84ff;
+  font-size: 1.8rem;
+  color: #0a84ffcc;
 }
 
 /* Weather Metrics Section */
@@ -277,15 +277,13 @@ body {
   flex: 1 1 35%;
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
-  justify-content: flex-start;
+  gap: 2rem;
 }
 
 .wind-section,
 .humidity-section {
-  background: rgba(255 255 255 / 0.15);
-  border-radius: 16px;
   padding: 1.6rem 2.4rem;
+  border-radius: 16px;
   box-shadow: 0 8px 32px 0 rgba(10, 132, 255, 0.15);
   color: #0a84ff;
 }
@@ -294,102 +292,107 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-top: 1rem;
 }
 
 .wind-icons,
 .flex-icons {
   font-size: 2.4rem;
-  color: #0a84ff;
+  color: #0a84ffcc;
 }
 
 /* Sun Section */
 .sun-section {
+  margin-top: 3rem;
   display: flex;
-  justify-content: space-between;
-  gap: 1.5rem;
+  gap: 2rem;
   flex-wrap: wrap;
-  margin-top: 2rem;
+  justify-content: space-between;
 }
 
 .sunrise,
 .sunset,
 .visibility-pressure {
-  background: rgba(255 255 255 / 0.15);
-  border-radius: 16px;
-  padding: 1.6rem 2.4rem;
-  box-shadow: 0 8px 32px 0 rgba(10, 132, 255, 0.15);
   flex: 1 1 30%;
+  padding: 1.6rem 2.4rem;
+  border-radius: 16px;
+  background: rgba(255 255 255 / 0.12);
   color: #0a84ff;
+  box-shadow: 0 8px 32px 0 rgba(10, 132, 255, 0.15);
+  user-select: none;
 }
 
 .sun-icons {
   font-size: 2.6rem;
-  color: #0a84ff;
+  margin-right: 1rem;
+  color: #0a84ffcc;
 }
 
-/* Visibility and Pressure */
-.visibility-pressure h2.text {
+.visibility-pressure .text {
   margin-left: 0.5rem;
-  font-weight: 700;
-  font-size: 1.4rem;
+  font-weight: 600;
 }
 
-/* Scrollbar styling for hourly forecast */
+/* Scrollbar for hourly forecast */
 .hourly-forecast-section::-webkit-scrollbar {
   height: 8px;
 }
 
 .hourly-forecast-section::-webkit-scrollbar-thumb {
-  background-color: rgba(10, 132, 255, 0.6);
-  border-radius: 10px;
+  background: rgba(10, 132, 255, 0.6);
+  border-radius: 4px;
 }
 
-.hourly-forecast-section::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-/* Responsive */
-
+/* Responsive Queries */
 @media (max-width: 768px) {
+  .header-search {
+    width: 140px;
+  }
   .overlay {
     width: 95%;
     padding: 1rem;
   }
-
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+  .current-temp {
+    font-size: 4rem;
   }
-
-  .header-search {
-    width: 100%;
-  }
-
   .current-section {
     flex-direction: column;
   }
-
   .container {
     flex-direction: column;
   }
-
+  .daily-forecast-section,
   .weather-metrics__section {
-    flex-direction: row;
-    gap: 1rem;
+    flex: 1 1 100%;
   }
-
+  .hourly-forecast-section {
+    justify-content: flex-start;
+  }
+  .hourly-forecast {
+    min-width: 60px;
+    font-size: 1.1rem;
+  }
+  .hourly-forecast__icon {
+    font-size: 1.6rem;
+  }
   .sun-section {
     flex-direction: column;
   }
-
-  .hourly-forecast-section {
-    gap: 1rem;
+  .sunrise,
+  .sunset,
+  .visibility-pressure {
+    flex: 1 1 100%;
   }
+}
 
-  .hourly-forecast {
-    min-width: 70px;
-    font-size: 1.1rem;
-    padding: 0.8rem;
+@media (max-width: 400px) {
+  .heading-text {
+    font-size: 2.2rem;
+  }
+  .search-input {
+    font-size: 1.2rem;
+  }
+  .current-temp {
+    font-size: 3rem;
   }
 }
