@@ -1,315 +1,142 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="weather.css" />
-    <link rel="stylesheet" href="queries.css" />
-    <title>Weather App</title>
-  </head>
- <body>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weather App</title>
+  <link rel="stylesheet" href="weather.css" />
+  <link rel="stylesheet" href="queries.css" />
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+  <div class="overlay glass">
+    <header class="header">
+      <div class="heading">
+        <h1 class="heading-text">Weather App</h1>
+        <ion-icon name="sunny-outline" class="heading-icon accent"></ion-icon>
+      </div>
+      <div class="header-search">
+        <input
+          type="search"
+          class="search-input"
+          name="search"
+          placeholder="Enter Location"
+          autocomplete="off"
+          aria-label="Search for location"
+        />
+        <ion-icon name="search-outline" class="header-search__icon accent"></ion-icon>
+      </div>
+    </header>
 
-    <div class="overlay">
-      <header class="header">
-        <div class="heading">
-          <h2 class="heading-text">Weather App</h2>
-          <ion-icon name="sunny-outline" class="heading-icon"></ion-icon>
-        </div>
-        <div class="header-search">
-          <input
-            type="search"
-            class="search-input"
-            name="search"
-            placeholder="Enter Location"
-          />
-          <ion-icon
-            name="search-outline"
-            class="header-search__icon"
-          ></ion-icon>
-        </div>
-      </header>
-      
-      <main class="main-section">
-        <section class="container2">
-          <section class="current-section">
-           
-            <div class="current-weather">
-              <p class="current-location">Paris, France</p>
-              <h2 class="current-temp">75&deg;F</h2>
-              <p class="current-condition">Partly Sunny</p>
-              <span class="high">High: 80&deg;F</span>
-              <span class="low">Low: 80&deg;F</span>
-            </div>
+    <main class="main-section">
 
-            <div class="current-weather absolute" >
-      
-      
-                <div class="subheading-div">
-                  <h2 class="subheading">Current Conditions</h2>
-                </div>
-                <div class="flex">
-                <p class="current-weather__description"></p>
-                 <ion-icon
-                name="flash-outline"
-                class="current-weather__icon"
-              ></ion-icon>
-              </div>
-              
-             
+      <section class="container2 current-section glass">
+        <div class="current-weather">
+          <p class="current-location">Paris, France</p>
+          <h2 class="current-temp accent">75&deg;F</h2>
+          <p class="current-condition">Partly Sunny</p>
+          <div class="temp-range">
+            <span class="high">High: 80&deg;F</span>
+            <span class="low">Low: 65&deg;F</span>
           </div>
+        </div>
 
-            <div class="current-weather">
-              <h2 class="date">March 28th, 2024</h2>
-              <p class="time">6:15pm CST</p>
-            
-            </div>
-          </section>
+        <div class="current-weather current-details">
+          <h3 class="subheading">Current Conditions</h3>
+          <div class="flex">
+            <p class="current-weather__description">Light breeze with sun breaks</p>
+            <ion-icon name="flash-outline" class="current-weather__icon accent"></ion-icon>
+          </div>
+        </div>
 
-          <h2 class="subheading">Hourly Forecast</h2>
-          <section class="hourly-forecast-section">
-            <div class="hourly-forecast">
-              <p class="hour hour2">9am</p>
-              <ion-icon
-                name="thunderstorm-outline"
-                class="hourly-forecast__icon"
-              ></ion-icon>
-              <p class="temp temp2">75&deg;F</p>
-            </div>
-            <div class="hourly-forecast">
-              <p class="hour">10am</p>
-              <ion-icon
-                name="thunderstorm-outline"
-                class="hourly-forecast__icon"
-              ></ion-icon>
-              <p class="temp">75&deg;F</p>
-            </div>
-            <div class="hourly-forecast">
-              <p class="hour">11am</p>
-              <ion-icon
-                name="thunderstorm-outline"
-                class="hourly-forecast__icon"
-              ></ion-icon>
-              <p class="temp">75&deg;F</p>
-            </div>
-            <div class="hourly-forecast">
-              <p class="hour">12pm</p>
-              <ion-icon
-                name="thunderstorm-outline"
-                class="hourly-forecast__icon"
-              ></ion-icon>
-              <p class="temp">75&deg;F</p>
-            </div>
-            <div class="hourly-forecast">
-              <p class="hour">1pm</p>
-              <ion-icon
-                name="thunderstorm-outline"
-                class="hourly-forecast__icon"
-              ></ion-icon>
-              <p class="temp">75&deg;F</p>
-            </div>
-            <div class="hourly-forecast">
-              <p class="hour">2pm</p>
-              <ion-icon
-                name="thunderstorm-outline"
-                class="hourly-forecast__icon"
-              ></ion-icon>
-              <p class="temp">75&deg;F</p>
-            </div>
-            <div class="hourly-forecast">
-              <p class="hour">3pm</p>
-              <ion-icon
-                name="thunderstorm-outline"
-                class="hourly-forecast__icon"
-              ></ion-icon>
-              <p class="temp">75&deg;F</p>
-            </div>
-            <div class="hourly-forecast">
-              <p class="hour">4pm</p>
-              <ion-icon
-                name="thunderstorm-outline"
-                class="hourly-forecast__icon"
-              ></ion-icon>
-              <p class="temp">75&deg;F</p>
-            </div>
-            <div class="hourly-forecast">
-              <p class="hour">5pm</p>
-              <ion-icon
-                name="thunderstorm-outline"
-                class="hourly-forecast__icon"
-              ></ion-icon>
-              <p class="temp">75&deg;F</p>
-            </div>
-            <div class="hourly-forecast">
-              <p class="hour">6pm</p>
-              <ion-icon
-                name="thunderstorm-outline"
-                class="hourly-forecast__icon"
-              ></ion-icon>
-              <p class="temp">75&deg;F</p>
-            </div>
-          </section>
-        </section>
+        <div class="current-weather date-time">
+          <h2 class="date accent">March 28th, 2024</h2>
+          <p class="time accent">6:15pm CST</p>
+        </div>
+      </section>
 
-        <section class="container">
-          <section class="daily-forecast-section">
-            <h4 class="subheading">Daily Forecast</h4>
+      <section class="hourly-forecast-section glass">
+        <h3 class="subheading">Hourly Forecast</h3>
+        <div class="hourly-forecast-container">
+          <!-- JS dynamic hourly forecast cards -->
+        </div>
+      </section>
 
-            <div class="daily-forecast__container">
-              <div class="daily-forecast">
-                <p>Mon</p>
-                <p>80&deg;</p>
-                <ion-icon
-                  name="thunderstorm-outline"
-                  class="hourly-forecast__icon"
-                ></ion-icon>
-                <p>54&deg;</p>
-              </div>
-              <div class="daily-forecast">
-                <p>Tue</p>
-                <p>60&deg;</p>
-                <ion-icon
-                  name="thunderstorm-outline"
-                  class="hourly-forecast__icon"
-                ></ion-icon>
-                <p>34&deg;</p>
-              </div>
-              <div class="daily-forecast">
-                <p>Wed</p>
-                <p>70&deg;</p>
-                <ion-icon
-                  name="thunderstorm-outline"
-                  class="hourly-forecast__icon"
-                ></ion-icon>
-                <p>54&deg;</p>
-              </div>
-              <div class="daily-forecast">
-                <p>Thu</p>
-                <p>72&deg;</p>
-                <ion-icon
-                  name="thunderstorm-outline"
-                  class="hourly-forecast__icon"
-                ></ion-icon>
-                <p>50&deg;</p>
-              </div>
-              <div class="daily-forecast">
-                <p>Fri</p>
-                <p>71&deg;</p>
-                <ion-icon
-                  name="thunderstorm-outline"
-                  class="hourly-forecast__icon"
-                ></ion-icon>
-                <p>54&deg;</p>
-              </div>
-            </div>
-          </section>
-       
+      <section class="container daily-forecast-section glass">
+        <h3 class="subheading">Daily Forecast</h3>
+        <div class="daily-forecast__container">
+          <!-- JS dynamic daily forecast cards -->
+        </div>
+      </section>
 
-        <section class="weather-metrics__section">
-          <div class="wind-section">
-            <h2 class="subheading">Wind</h2>
-            <div class="weather-metrics__container">
+      <section class="weather-metrics__section">
+        <div class="metric-section glass">
+          <h3 class="subheading">Wind</h3>
+          <div class="weather-metrics__container">
             <div class="flex">
-                  <ion-icon name="speedometer" class="wind-icons"></ion-icon>
-                  <p class="current-weather__wind-speed"></p>
-                </div>
-                <div class="flex">
-                  <ion-icon name="leaf" class="wind-icons"></ion-icon>
-                  <p class="current-weather__wind-gusts"></p>
-                </div>
-                </div>
-          </div>
-
-          <div class="humidity-section">
-            <h2 class="subheading">Real Feel</h2>
-            <div class="weather-metrics__container">
+              <ion-icon name="speedometer" class="wind-icons accent"></ion-icon>
+              <p class="current-weather__wind-speed accent">12 mph</p>
+            </div>
             <div class="flex">
-                  <ion-icon name="water" class="flex-icons"></ion-icon>
-                  <p class="current-weather__humdity"></p>
-                </div>
-                
-                <div class="flex">
-                  <ion-icon name="thermometer" class="flex-icons"></ion-icon>
-                  <p class="current-weather__feel"></p>
-                </div>
-                </div>
+              <ion-icon name="leaf" class="wind-icons accent"></ion-icon>
+              <p class="current-weather__wind-gusts accent">20 mph gusts</p>
+            </div>
           </div>
-        </section>
-
-       <section class="z">
-
-        <div class="x">
-        <div class="y">
-        <div>
-          <h2 class="subheading">Sunrise</h2>
-        </div>
-        <div class="flex">
-         <ion-icon name="sunny" class="sun-icons"></ion-icon>
-         <p class="sunrise-text"></p>
-         </div>
         </div>
 
-        <div class="y">
-        <div>
-          <h2 class="subheading">Sunset</h2>
+        <div class="metric-section glass">
+          <h3 class="subheading">Real Feel</h3>
+          <div class="weather-metrics__container">
+            <div class="flex">
+              <ion-icon name="water" class="flex-icons accent"></ion-icon>
+              <p class="current-weather__humidity accent">65%</p>
+            </div>
+            <div class="flex">
+              <ion-icon name="thermometer" class="flex-icons accent"></ion-icon>
+              <p class="current-weather__feel accent">77&deg;F</p>
+            </div>
+          </div>
         </div>
-        <div class="flex">
-        <ion-icon name="moon" class="sun-icons"></ion-icon>
-        <p class="sunset-text"></p>
-        </div>
-        </div>
+      </section>
+
+      <section class="extra-info-section">
+
+        <div class="info-block glass">
+          <h3 class="subheading">Sunrise</h3>
+          <div class="flex">
+            <ion-icon name="sunny" class="sun-icons accent"></ion-icon>
+            <p class="sunrise-text accent">6:43 AM</p>
+          </div>
         </div>
 
-         <div class="x">
-        <div class="y">
-        <div class="flex">
-           <ion-icon name="eye" class="sun-icons"></ion-icon>
-          <h2 class="subheading text">Visibility:</h2>
-        </div>
-        </div>
-
-        <div class="y">
-        <div>
-          <p class="visibility-text"></p>
-        </div>
+        <div class="info-block glass">
+          <h3 class="subheading">Sunset</h3>
+          <div class="flex">
+            <ion-icon name="moon" class="sun-icons accent"></ion-icon>
+            <p class="sunset-text accent">7:15 PM</p>
+          </div>
         </div>
 
-        
-
-        
-        </div>
-        <div class="x">
-        <div class="y">
-        <div class="flex">
-           <ion-icon name="bar-chart" class="sun-icons md hydrated" role="img"></ion-icon>
-          <h2 class="subheading text">Pressure:</h2>
-        </div>
+        <div class="info-block glass">
+          <div class="flex">
+            <ion-icon name="eye" class="sun-icons accent"></ion-icon>
+            <h3 class="subheading accent">Visibility</h3>
+          </div>
+          <p class="visibility-text accent">6 miles</p>
         </div>
 
-        <div class="y">
-        <div>
-          <p class="pressure-text">6 miles</p>
+        <div class="info-block glass">
+          <div class="flex">
+            <ion-icon name="bar-chart" class="sun-icons accent"></ion-icon>
+            <h3 class="subheading accent">Pressure</h3>
+          </div>
+          <p class="pressure-text accent">1012 hPa</p>
         </div>
-        </div>
-        </div>
+      </section>
+    </main>
+  </div>
 
-       </section>
-        
-
-  
-
-
-        </main>
-        </div>
-    <script src="script.js"></script>
-
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
-  </body>
+  <script src="script.js"></script>
+</body>
 </html>
-
