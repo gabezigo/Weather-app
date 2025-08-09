@@ -392,7 +392,8 @@ body {
 /* Sun & related section */
 .sun-section {
   display: flex;
-  gap: 2.6rem;
+  gap: 2rem;
+  padding: 1rem;
   flex-wrap: wrap;
   justify-content: space-between;
   user-select: none;
@@ -418,6 +419,7 @@ body {
 
 .sunrise,
 .sunset {
+  padding: 0 !important;
   background: none !important;  /* remove individual backgrounds */
   box-shadow: none !important;  /* remove individual shadows */
 }
@@ -486,7 +488,7 @@ body {
   }
 
   .sun-section {
-    flex-direction: column;
+    flex-direction: row;
     gap: 1.8rem;
   }
 
@@ -615,6 +617,7 @@ body {
   justify-content: space-between;
   gap: 1.6rem;
 }
+
 
 
 
