@@ -132,7 +132,6 @@ body {
 
 /* Current weather cards */
 .current-weather {
-  flex: 1 1 280px;
   background: rgba(255 255 255 / 0.1);
   border-radius: 1.2rem;
   padding: 2rem 2.4rem;
@@ -590,3 +589,4 @@ body {
     font-size: 1.3rem;
   }
 }
+
