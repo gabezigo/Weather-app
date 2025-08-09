@@ -358,7 +358,7 @@ body {
   padding: 1rem;
   color: #d0e4ff;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 1.4rem;
 }
 
@@ -587,6 +587,7 @@ body {
     font-size: 1.3rem;
   }
 }
+
 
 
 
