@@ -408,6 +408,10 @@ body {
   gap: 1.4rem;
 }
 
+.visibility-pressure {
+  flex-direction: row;
+}
+
 /* Flex container for icon + text */
 .sunrise > .flex,
 .sunset > .flex,
@@ -583,6 +587,7 @@ body {
     font-size: 1.3rem;
   }
 }
+
 
 
 
