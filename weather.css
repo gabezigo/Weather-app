@@ -362,6 +362,10 @@ body {
   gap: 1.4rem;
 }
 
+.wind-section {
+  margin-top: 1.4rem;
+}
+
 /* Icons in metrics */
 .wind-section ion-icon,
 .humidity-section ion-icon {
@@ -611,6 +615,7 @@ body {
   justify-content: space-between;
   gap: 1.6rem;
 }
+
 
 
 
