@@ -589,6 +589,17 @@ body {
 }
 
 
+.humidity-section .weather-metrics__container {
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1.6rem;
+}
+
+.wind-section .weather-metrics__container {
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1.6rem;
+}
 
 
 
