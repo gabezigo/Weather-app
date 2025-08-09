@@ -1,137 +1,192 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Weather App</title>
-  <link rel="stylesheet" href="weather.css" />
-  <link rel="stylesheet" href="queries.css" />
+
+  <!-- Ionicons -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <link rel="stylesheet" href="weather.css" />
 </head>
 <body>
-  <div class="overlay glass">
-    <header class="header">
-      <div class="heading">
-        <h1 class="heading-text">Weather App</h1>
-        <ion-icon name="sunny-outline" class="heading-icon accent"></ion-icon>
-      </div>
-      <div class="header-search">
-        <input
-          type="search"
-          class="search-input"
-          name="search"
-          placeholder="Enter Location"
-          autocomplete="off"
-          aria-label="Search for location"
-        />
-        <ion-icon name="search-outline" class="header-search__icon accent"></ion-icon>
-      </div>
-    </header>
 
-    <main class="main-section">
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar card">
+      <header class="header">
+        <div class="heading">
+          <h1 class="heading-text">Weather App</h1>
+          <ion-icon name="sunny-outline" class="heading-icon"></ion-icon>
+        </div>
+        <div class="header-search">
+          <input
+            type="search"
+            class="search-input"
+            placeholder="Enter Location"
+            aria-label="Search location"
+          />
+          <ion-icon name="search-outline" class="header-search__icon"></ion-icon>
+        </div>
+      </header>
 
-      <section class="container2 current-section glass">
+      <section class="current-section">
         <div class="current-weather">
-          <p class="current-location">Paris, France</p>
-          <h2 class="current-temp accent">75&deg;F</h2>
-          <p class="current-condition">Partly Sunny</p>
+          <p class="current-location">Loading...</p>
+          <h2 class="current-temp">--°F</h2>
+          <p class="current-condition">--</p>
           <div class="temp-range">
-            <span class="high">High: 80&deg;F</span>
-            <span class="low">Low: 65&deg;F</span>
+            <span class="high">High: --°F</span>
+            <span class="low">Low: --°F</span>
           </div>
         </div>
 
-        <div class="current-weather current-details">
-          <h3 class="subheading">Current Conditions</h3>
-          <div class="flex">
-            <p class="current-weather__description">Light breeze with sun breaks</p>
-            <ion-icon name="flash-outline" class="current-weather__icon accent"></ion-icon>
+        <div class="current-weather absolute">
+          <h2 class="subheading">Current Conditions</h2>
+          <div class="flex-center">
+            <p class="current-weather__description">--</p>
+            <ion-icon name="flash-outline" class="current-weather__icon"></ion-icon>
           </div>
         </div>
 
-        <div class="current-weather date-time">
-          <h2 class="date accent">March 28th, 2024</h2>
-          <p class="time accent">6:15pm CST</p>
+        <div class="current-weather">
+          <h2 class="date">--</h2>
+          <p class="time">--</p>
         </div>
       </section>
 
-      <section class="hourly-forecast-section glass">
-        <h3 class="subheading">Hourly Forecast</h3>
-        <div class="hourly-forecast-container">
-          <!-- JS dynamic hourly forecast cards -->
-        </div>
-      </section>
-
-      <section class="container daily-forecast-section glass">
-        <h3 class="subheading">Daily Forecast</h3>
-        <div class="daily-forecast__container">
-          <!-- JS dynamic daily forecast cards -->
-        </div>
-      </section>
-
-      <section class="weather-metrics__section">
-        <div class="metric-section glass">
+      <section class="weather-metrics">
+        <div class="metrics-section card">
           <h3 class="subheading">Wind</h3>
-          <div class="weather-metrics__container">
-            <div class="flex">
-              <ion-icon name="speedometer" class="wind-icons accent"></ion-icon>
-              <p class="current-weather__wind-speed accent">12 mph</p>
-            </div>
-            <div class="flex">
-              <ion-icon name="leaf" class="wind-icons accent"></ion-icon>
-              <p class="current-weather__wind-gusts accent">20 mph gusts</p>
-            </div>
+          <div class="metric-item flex-center">
+            <ion-icon name="speedometer" class="metric-icon"></ion-icon>
+            <p class="current-weather__wind-speed">-- Mph Winds</p>
+          </div>
+          <div class="metric-item flex-center">
+            <ion-icon name="leaf" class="metric-icon"></ion-icon>
+            <p class="current-weather__wind-gusts">-- Mph Gusts</p>
           </div>
         </div>
 
-        <div class="metric-section glass">
+        <div class="metrics-section card">
           <h3 class="subheading">Real Feel</h3>
-          <div class="weather-metrics__container">
-            <div class="flex">
-              <ion-icon name="water" class="flex-icons accent"></ion-icon>
-              <p class="current-weather__humidity accent">65%</p>
-            </div>
-            <div class="flex">
-              <ion-icon name="thermometer" class="flex-icons accent"></ion-icon>
-              <p class="current-weather__feel accent">77&deg;F</p>
-            </div>
+          <div class="metric-item flex-center">
+            <ion-icon name="water" class="metric-icon"></ion-icon>
+            <p class="current-weather__humidity">--%</p>
+          </div>
+          <div class="metric-item flex-center">
+            <ion-icon name="thermometer" class="metric-icon"></ion-icon>
+            <p class="current-weather__feel">--°F</p>
           </div>
         </div>
       </section>
 
-      <section class="extra-info-section">
-
-        <div class="info-block glass">
+      <section class="sun-section card">
+        <div class="sunrise">
           <h3 class="subheading">Sunrise</h3>
-          <div class="flex">
-            <ion-icon name="sunny" class="sun-icons accent"></ion-icon>
-            <p class="sunrise-text accent">6:43 AM</p>
+          <div class="flex-center">
+            <ion-icon name="sunny" class="sun-icon"></ion-icon>
+            <p class="sunrise-text">--:--</p>
           </div>
         </div>
 
-        <div class="info-block glass">
+        <div class="sunset">
           <h3 class="subheading">Sunset</h3>
-          <div class="flex">
-            <ion-icon name="moon" class="sun-icons accent"></ion-icon>
-            <p class="sunset-text accent">7:15 PM</p>
+          <div class="flex-center">
+            <ion-icon name="moon" class="sun-icon"></ion-icon>
+            <p class="sunset-text">--:--</p>
           </div>
         </div>
+      </section>
 
-        <div class="info-block glass">
-          <div class="flex">
-            <ion-icon name="eye" class="sun-icons accent"></ion-icon>
-            <h3 class="subheading accent">Visibility</h3>
-          </div>
-          <p class="visibility-text accent">6 miles</p>
+      <section class="visibility-pressure card">
+        <div class="visibility">
+          <h3 class="subheading">Visibility</h3>
+          <p class="visibility-text">-- miles</p>
         </div>
+        <div class="pressure">
+          <h3 class="subheading">Pressure</h3>
+          <p class="pressure-text">-- inHg</p>
+        </div>
+      </section>
+    </aside>
 
-        <div class="info-block glass">
-          <div class="flex">
-            <ion-icon name="bar-chart" class="sun-icons accent"></ion-icon>
-            <h3 class="subheading accent">Pressure</h3>
+    <!-- Main content: Forecast -->
+    <main class="main-content">
+      <section class="forecast-section card">
+        <h2 class="subheading">Hourly Forecast</h2>
+        <div class="hourly-forecast">
+          <!-- JS will dynamically fill these -->
+          <!-- Example block for hourly forecast -->
+          <div class="hourly-forecast__item">
+            <p class="hour">--</p>
+            <ion-icon name="partly-sunny-outline" class="hourly-forecast__icon"></ion-icon>
+            <p class="temp">--°F</p>
           </div>
-          <p class="pressure-text accent">1012 hPa</p>
+          <div class="hourly-forecast__item">
+            <p class="hour">--</p>
+            <ion-icon name="partly-sunny-outline" class="hourly-forecast__icon"></ion-icon>
+            <p class="temp">--°F</p>
+          </div>
+          <div class="hourly-forecast__item">
+            <p class="hour">--</p>
+            <ion-icon name="partly-sunny-outline" class="hourly-forecast__icon"></ion-icon>
+            <p class="temp">--°F</p>
+          </div>
+          <div class="hourly-forecast__item">
+            <p class="hour">--</p>
+            <ion-icon name="partly-sunny-outline" class="hourly-forecast__icon"></ion-icon>
+            <p class="temp">--°F</p>
+          </div>
+          <div class="hourly-forecast__item">
+            <p class="hour">--</p>
+            <ion-icon name="partly-sunny-outline" class="hourly-forecast__icon"></ion-icon>
+            <p class="temp">--°F</p>
+          </div>
+          <div class="hourly-forecast__item">
+            <p class="hour">--</p>
+            <ion-icon name="partly-sunny-outline" class="hourly-forecast__icon"></ion-icon>
+            <p class="temp">--°F</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="forecast-section card">
+        <h2 class="subheading">Daily Forecast</h2>
+        <div class="daily-forecast">
+          <!-- JS will fill these 5 days -->
+          <div class="daily-forecast__item">
+            <p class="day">--</p>
+            <p class="daily-temp-high">--°F</p>
+            <ion-icon name="partly-sunny-outline" class="daily-forecast__icon"></ion-icon>
+            <p class="daily-temp-low">--°F</p>
+          </div>
+          <div class="daily-forecast__item">
+            <p class="day">--</p>
+            <p class="daily-temp-high">--°F</p>
+            <ion-icon name="partly-sunny-outline" class="daily-forecast__icon"></ion-icon>
+            <p class="daily-temp-low">--°F</p>
+          </div>
+          <div class="daily-forecast__item">
+            <p class="day">--</p>
+            <p class="daily-temp-high">--°F</p>
+            <ion-icon name="partly-sunny-outline" class="daily-forecast__icon"></ion-icon>
+            <p class="daily-temp-low">--°F</p>
+          </div>
+          <div class="daily-forecast__item">
+            <p class="day">--</p>
+            <p class="daily-temp-high">--°F</p>
+            <ion-icon name="partly-sunny-outline" class="daily-forecast__icon"></ion-icon>
+            <p class="daily-temp-low">--°F</p>
+          </div>
+          <div class="daily-forecast__item">
+            <p class="day">--</p>
+            <p class="daily-temp-high">--°F</p>
+            <ion-icon name="partly-sunny-outline" class="daily-forecast__icon"></ion-icon>
+            <p class="daily-temp-low">--°F</p>
+          </div>
         </div>
       </section>
     </main>
