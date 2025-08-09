@@ -406,7 +406,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
-  min-width: 240px;
 }
 
 /* Flex container for icon + text */
@@ -584,5 +583,6 @@ body {
     font-size: 1.3rem;
   }
 }
+
 
 
