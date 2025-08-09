@@ -18,12 +18,8 @@ function formatHour(hour) {
 
 function clearWeatherClasses() {
   body.classList.remove(
-    "clear-sky-day",
-    "haze-day",
-    "rainy-day",
-    "clouds-day",
-    "clear-sky-night",
-    "clouds-night"
+    "clear-sky-day", "haze-day", "rainy-day", "clouds-day",
+    "clear-sky-night", "clouds-night"
   );
   currentIcon.style.color = "";
   appIcon.style.color = "";
@@ -35,64 +31,47 @@ function updateBackground(condition, currentTime) {
   clearWeatherClasses();
 
   const currentHour = currentTime.getHours();
-  const isDay =
-    sunriseTime &&
-    sunsetTime &&
-    currentHour >= sunriseTime.getHours() &&
-    currentHour < sunsetTime.getHours();
+  const isDay = sunriseTime && sunsetTime && (currentHour >= sunriseTime.getHours() && currentHour < sunsetTime.getHours());
 
   if (isDay) {
     switch (condition) {
       case "Clear":
         body.classList.add("clear-sky-day");
         currentIcon.setAttribute("name", "sunny-outline");
-        currentIcon.style.color = "#ffd700";
-        appIcon.style.color = "#ffd700";
         break;
       case "Haze":
         body.classList.add("haze-day");
         currentIcon.setAttribute("name", "cloud");
-        currentIcon.style.color = "#c0c0c0";
-        appIcon.style.color = "#c0c0c0";
         break;
       case "Rain":
         body.classList.add("rainy-day");
         currentIcon.setAttribute("name", "rainy");
-        currentIcon.style.color = "#4682b4";
-        appIcon.style.color = "#4682b4";
         break;
       case "Clouds":
         body.classList.add("clouds-day");
         currentIcon.setAttribute("name", "cloud");
         currentIcon.style.color = "rgb(204,204,204)";
-        appIcon.style.color = "rgb(204,204,204)";
         break;
       default:
         body.style.backgroundColor = "#ffffff";
         currentIcon.setAttribute("name", "cloud-outline");
-        currentIcon.style.color = "";
-        appIcon.style.color = "";
     }
   } else {
     switch (condition) {
       case "Clear":
         body.classList.add("clear-sky-night");
         currentIcon.setAttribute("name", "moon-outline");
-        currentIcon.style.color = "#fffacd";
-        appIcon.style.color = "#fffacd";
         break;
       case "Clouds":
         body.classList.add("clouds-night");
         currentIcon.setAttribute("name", "cloudy-night");
         currentIcon.style.color = "#CCCCCC";
-        appIcon.style.color = "#CCCCCC";
         document.querySelector(".heading-text").style.color = "#fff";
+        appIcon.setAttribute("name", "moon-outline");
         break;
       default:
         body.style.backgroundColor = "#000000";
         currentIcon.setAttribute("name", "moon-outline");
-        currentIcon.style.color = "#ccc";
-        appIcon.style.color = "#ccc";
     }
   }
 }
@@ -106,39 +85,100 @@ function updateHourlyIcons(forecastConditions) {
     switch (condition) {
       case "Rain":
         icon.setAttribute("name", "rainy");
-        icon.style.color = "#4682b4";
+        icon.style.color = "#0078ff";
         break;
       case "Clouds":
         icon.setAttribute("name", "cloud");
-        icon.style.color = "#CCCCCC";
+        icon.style.color = "#999";
         break;
       case "Snow":
         icon.setAttribute("name", "snow");
-        icon.style.color = "#ddd";
+        icon.style.color = "#bbb";
+        break;
+      case "Clear":
+        icon.setAttribute("name", "sunny-outline");
+        icon.style.color = "#f5a623";
         break;
       default:
         icon.setAttribute("name", "partly-sunny-outline");
-        icon.style.color = "#f0e68c";
+        icon.style.color = "#0078ff";
     }
   });
 }
 
 function updateForecast(data) {
-  const hours = data.list.map((f) => {
+  const hours = data.list.map(f => {
     const d = new Date(f.dt_txt);
     return formatHour(d.getHours());
   });
 
-  const temps = data.list.map((f) => kelvinToF(f.main.temp));
-  const conditions = data.list.map((f) => f.weather[0].main);
+  const temps = data.list.map(f => kelvinToF(f.main.temp));
+  const conditions = data.list.map(f => f.weather[0].main);
 
-  document.querySelectorAll(".hour").forEach((el, i) => {
-    if (hours[i]) el.textContent = hours[i];
+  // Update Hourly Forecast (first 6 hours)
+  const hourlyHours = document.querySelectorAll(".hourly-forecast .hour");
+  const hourlyTemps = document.querySelectorAll(".hourly-forecast .temp");
+  const hourlyIcons = document.querySelectorAll(".hourly-forecast__icon");
+  for (let i = 0; i < hourlyHours.length; i++) {
+    if (hours[i]) hourlyHours[i].textContent = hours[i];
+    if (temps[i]) hourlyTemps[i].textContent = temps[i];
+  }
+  updateHourlyIcons(conditions.slice(0, hourlyHours.length));
+
+  // Prepare daily forecast (5 days) from 3h data by grouping by date
+  const dailyData = {};
+  data.list.forEach(item => {
+    const dateStr = item.dt_txt.split(" ")[0];
+    if (!dailyData[dateStr]) dailyData[dateStr] = [];
+    dailyData[dateStr].push(item);
   });
-  document.querySelectorAll(".temp").forEach((el, i) => {
-    if (temps[i]) el.textContent = temps[i];
+
+  const dailyKeys = Object.keys(dailyData).slice(0, 5);
+  const dailyItems = document.querySelectorAll(".daily-forecast__item");
+
+  dailyKeys.forEach((dateStr, i) => {
+    const dayData = dailyData[dateStr];
+    // Get max and min temps for the day
+    let maxTempK = -Infinity;
+    let minTempK = Infinity;
+    let mainCondition = "Clear";
+
+    dayData.forEach(item => {
+      if (item.main.temp_max > maxTempK) maxTempK = item.main.temp_max;
+      if (item.main.temp_min < minTempK) minTempK = item.main.temp_min;
+      if (item.weather[0].main) mainCondition = item.weather[0].main;
+    });
+
+    const dayName = new Date(dateStr).toLocaleDateString(undefined, { weekday: "short" });
+
+    if (!dailyItems[i]) return;
+    dailyItems[i].querySelector(".day").textContent = dayName;
+    dailyItems[i].querySelector(".daily-temp-high").textContent = kelvinToF(maxTempK);
+    dailyItems[i].querySelector(".daily-temp-low").textContent = kelvinToF(minTempK);
+
+    const icon = dailyItems[i].querySelector(".daily-forecast__icon");
+    switch (mainCondition) {
+      case "Rain":
+        icon.setAttribute("name", "rainy");
+        icon.style.color = "#0078ff";
+        break;
+      case "Clouds":
+        icon.setAttribute("name", "cloud");
+        icon.style.color = "#999";
+        break;
+      case "Snow":
+        icon.setAttribute("name", "snow");
+        icon.style.color = "#bbb";
+        break;
+      case "Clear":
+        icon.setAttribute("name", "sunny-outline");
+        icon.style.color = "#f5a623";
+        break;
+      default:
+        icon.setAttribute("name", "partly-sunny-outline");
+        icon.style.color = "#0078ff";
+    }
   });
-  updateHourlyIcons(conditions);
 }
 
 function metersToMiles(m) {
@@ -155,22 +195,13 @@ function updateAllWeather(data) {
   const wind = data.wind;
   const sys = data.sys;
 
-  // Fix typo here: humidity
+  // Update text fields
+  document.querySelector(".current-weather__description").textContent = weather.description[0].toUpperCase() + weather.description.slice(1);
   document.querySelector(".current-weather__humidity").textContent = `Humidity: ${main.humidity}%`;
-
-  document.querySelector(".current-weather__description").textContent =
-    weather.description[0].toUpperCase() + weather.description.slice(1);
-  document.querySelector(".current-weather__feel").textContent = `Feels like: ${kelvinToF(
-    main.feels_like
-  )}`;
-  document.querySelector(".current-weather__wind-speed").textContent = `${Math.floor(
-    wind.speed
-  )} Mph Winds`;
-  document.querySelector(".current-weather__wind-gusts").textContent = wind.gust
-    ? `${Math.floor(wind.gust)} Mph Gusts`
-    : "No gusts data";
-
-  document.querySelector(".current-weather h2").textContent = kelvinToF(main.temp);
+  document.querySelector(".current-weather__feel").textContent = `Feels like: ${kelvinToF(main.feels_like)}`;
+  document.querySelector(".current-weather__wind-speed").textContent = `${Math.floor(wind.speed)} Mph Winds`;
+  document.querySelector(".current-weather__wind-gusts").textContent = wind.gust ? `${Math.floor(wind.gust)} Mph Gusts` : "No gusts data";
+  document.querySelector(".current-temp").textContent = kelvinToF(main.temp);
   document.querySelector(".high").textContent = `High: ${kelvinToF(main.temp_max)}`;
   document.querySelector(".low").textContent = `Low: ${kelvinToF(main.temp_min)}`;
   document.querySelector(".current-location").textContent = data.name;
@@ -179,15 +210,8 @@ function updateAllWeather(data) {
   sunriseTime = new Date(sys.sunrise * 1000);
   sunsetTime = new Date(sys.sunset * 1000);
 
-  // Correct am/pm display: use toLocaleTimeString with hour12 option
-  document.querySelector(".sunrise-text").textContent = sunriseTime.toLocaleTimeString(
-    [],
-    { hour: "2-digit", minute: "2-digit", hour12: true }
-  );
-  document.querySelector(".sunset-text").textContent = sunsetTime.toLocaleTimeString(
-    [],
-    { hour: "2-digit", minute: "2-digit", hour12: true }
-  );
+  document.querySelector(".sunrise-text").textContent = sunriseTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  document.querySelector(".sunset-text").textContent = sunsetTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   document.querySelector(".visibility-text").textContent = `${metersToMiles(data.visibility)} miles`;
   document.querySelector(".pressure-text").textContent = `${hpaToInHg(main.pressure)} inHg`;
@@ -200,15 +224,15 @@ function fetchWeatherByCoords(lat, lon) {
   const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}`;
 
   fetch(currentUrl)
-    .then((res) => {
+    .then(res => {
       if (!res.ok) throw new Error("Failed to fetch weather");
       return res.json();
     })
-    .then((data) => {
+    .then(data => {
       updateAllWeather(data);
       return fetch(forecastUrl);
     })
-    .then((res) => {
+    .then(res => {
       if (!res.ok) throw new Error("Failed to fetch forecast");
       return res.json();
     })
@@ -221,20 +245,20 @@ function fetchWeatherByCity(city) {
   const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${key}`;
 
   fetch(currentUrl)
-    .then((res) => {
+    .then(res => {
       if (!res.ok) throw new Error("City not found");
       return res.json();
     })
-    .then((data) => {
+    .then(data => {
       updateAllWeather(data);
       return fetch(forecastUrl);
     })
-    .then((res) => {
+    .then(res => {
       if (!res.ok) throw new Error("Forecast not found");
       return res.json();
     })
     .then(updateForecast)
-    .catch((err) => {
+    .catch(err => {
       alert(err.message);
       console.error(err);
     });
@@ -242,15 +266,12 @@ function fetchWeatherByCity(city) {
 
 function getLocationAndUpdate() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        fetchWeatherByCoords(pos.coords.latitude, pos.coords.longitude);
-      },
-      (err) => {
-        console.warn("Geolocation failed, loading default city.");
-        fetchWeatherByCity("New York"); // fallback city
-      }
-    );
+    navigator.geolocation.getCurrentPosition(pos => {
+      fetchWeatherByCoords(pos.coords.latitude, pos.coords.longitude);
+    }, err => {
+      console.warn("Geolocation failed, loading default city.");
+      fetchWeatherByCity("New York"); // fallback city
+    });
   } else {
     fetchWeatherByCity("New York");
   }
@@ -264,12 +285,7 @@ function updateDateTime() {
   dateEl.textContent = now.toLocaleDateString(undefined, options);
 
   const timeEl = document.querySelector(".time");
-  const timeStr = now.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true,
-  });
+  const timeStr = now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", second: "2-digit", hour12: true });
   timeEl.textContent = `${timeStr} CST`;
 }
 
@@ -280,7 +296,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(updateDateTime, 1000);
 
   const searchInput = document.querySelector(".search-input");
-  searchInput.addEventListener("keypress", (e) => {
+  searchInput.addEventListener("keypress", e => {
     if (e.key === "Enter") {
       const city = searchInput.value.trim();
       if (city) fetchWeatherByCity(city);
